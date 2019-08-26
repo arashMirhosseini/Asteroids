@@ -15,8 +15,8 @@ MovingObject.prototype.draw = function(ctx) {
 
 MovingObject.prototype.move = function() {
   const wrapPos = this.game.wrap(this.pos);
-  this.wrapPos[0] += this.vel[0];
-  this.wrapPos[1] += this.vel[1];
+  this.pos[0] = wrapPos[0] + this.vel[0];
+  this.pos[1] = wrapPos[1] + this.vel[1];
 
 }
 

@@ -1,9 +1,10 @@
 const Asteroid = require("./asteroid.js");
+const Util = require("./util.js");
 
 function Game() {
   this.DIM_X = 1000;
   this.DIM_Y = 600;
-  this.NUM_ASTEROIDS = 30;
+  this.NUM_ASTEROIDS = 2;
   this.addAsteroids = this.addAsteroids.bind(this);
   this.asteroids = [];
   this.addAsteroids();
@@ -38,7 +39,7 @@ Game.prototype.moveObjects = function() {
 }
 
 Game.prototype.wrap = function(pos) {
-  return [-pos[0], -pos[1]];
+  return [Util.wrap(pos[0], this.DIM_X), Util.wrap(pos[1], this.DIM_Y)];
 }
 
 module.exports = Game;
