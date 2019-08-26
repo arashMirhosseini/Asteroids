@@ -12,8 +12,6 @@ function Asteroid(posObj) {
   this.RADIUS = DEFAULTS.RADIUS;
   posObj.color = this.COLOR;
   posObj.radius = this.RADIUS;
-  const pos = posObj.pos;
-  const length = Math.sqrt(Math.pow(pos[0], 2) + Math.pow(pos[1], 2));
   const vel = Util.randomVec(DEFAULTS.SPEED);
   posObj.vel = vel;
   MovingObject.call(this, posObj);

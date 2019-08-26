@@ -93,7 +93,7 @@
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-eval("const Util = __webpack_require__(/*! ./util.js */ \"./src/util.js\");\nconst MovingObject = __webpack_require__(/*! ./moving_object.js */ \"./src/moving_object.js\");\n\nconst DEFAULTS = {\n  COLOR: \"#505050\",\n  RADIUS: 25,\n  SPEED: 4\n};\n\nfunction Asteroid(posObj) {\n  this.COLOR = DEFAULTS.COLOR;\n  this.RADIUS = DEFAULTS.RADIUS;\n  posObj.color = this.COLOR;\n  posObj.radius = this.RADIUS;\n  const pos = posObj.pos;\n  const length = Math.sqrt(Math.pow(pos[0], 2) + Math.pow(pos[1], 2));\n  const vel = Util.randomVec(DEFAULTS.SPEED);\n  posObj.vel = vel;\n  MovingObject.call(this, posObj);\n\n}\n\nUtil.inherits(Asteroid, MovingObject);\n\nmodule.exports = Asteroid;\n\n\n//# sourceURL=webpack:///./src/asteroid.js?");
+eval("const Util = __webpack_require__(/*! ./util.js */ \"./src/util.js\");\nconst MovingObject = __webpack_require__(/*! ./moving_object.js */ \"./src/moving_object.js\");\n\nconst DEFAULTS = {\n  COLOR: \"#505050\",\n  RADIUS: 25,\n  SPEED: 4\n};\n\nfunction Asteroid(posObj) {\n  this.COLOR = DEFAULTS.COLOR;\n  this.RADIUS = DEFAULTS.RADIUS;\n  posObj.color = this.COLOR;\n  posObj.radius = this.RADIUS;\n  const vel = Util.randomVec(DEFAULTS.SPEED);\n  posObj.vel = vel;\n  MovingObject.call(this, posObj);\n\n}\n\nUtil.inherits(Asteroid, MovingObject);\n\nmodule.exports = Asteroid;\n\n\n//# sourceURL=webpack:///./src/asteroid.js?");
 
 /***/ }),
 
@@ -126,7 +126,7 @@ eval("const Game = __webpack_require__(/*! ./game.js */ \"./src/game.js\");\n\nf
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-eval("const MovingObject = __webpack_require__(/*! ./moving_object.js */ \"./src/moving_object.js\");\nconst Asteroid = __webpack_require__(/*! ./asteroid.js */ \"./src/asteroid.js\");\nconst GameView = __webpack_require__(/*! ./game_view.js */ \"./src/game_view.js\");\n\nwindow.MovingObject = MovingObject;\nwindow.Asteroid = Asteroid;\nwindow.GameView = GameView;\n\nconst mo = new MovingObject({\n  pos: [30, 30],\n  vel: [10, 10],\n  radius: 30,\n  color: \"#00FF00\"\n});\n\nconst ast = new Asteroid({ pos: [30, 90]});\n\ndocument.addEventListener('DOMContentLoaded', function() {\n  const canvas = document.getElementById('game-canvas');\n  const ctx = canvas.getContext('2d');\n  canvas.width = 1000;\n  canvas.height = 600;\n  mo.draw(ctx);\n  // ast.draw(ctx);\n  const gameView = new GameView(ctx);\n  gameView.start();\n});\n\n\n//# sourceURL=webpack:///./src/index.js?");
+eval("const GameView = __webpack_require__(/*! ./game_view.js */ \"./src/game_view.js\");\n\ndocument.addEventListener('DOMContentLoaded', function() {\n  const canvas = document.getElementById('game-canvas');\n  const ctx = canvas.getContext('2d');\n  canvas.width = 1000;\n  canvas.height = 600;\n  const gameView = new GameView(ctx);\n  gameView.start();\n});\n\n\n//# sourceURL=webpack:///./src/index.js?");
 
 /***/ }),
 
