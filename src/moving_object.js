@@ -3,6 +3,7 @@ function MovingObject(obj) {
   this.vel = obj.vel;
   this.radius = obj.radius;
   this.color = obj.color;
+  this.game = obj.game;
 }
 
 MovingObject.prototype.draw = function(ctx) {
@@ -13,8 +14,10 @@ MovingObject.prototype.draw = function(ctx) {
 }
 
 MovingObject.prototype.move = function() {
-  this.pos[0] += this.vel[0];
-  this.pos[1] += this.vel[1];
+  const wrapPos = this.game.wrap(this.pos);
+  this.wrapPos[0] += this.vel[0];
+  this.wrapPos[1] += this.vel[1];
+
 }
 
 module.exports = MovingObject;

@@ -7,14 +7,14 @@ const DEFAULTS = {
   SPEED: 4
 };
 
-function Asteroid(posObj) {
+function Asteroid(options) {
   this.COLOR = DEFAULTS.COLOR;
   this.RADIUS = DEFAULTS.RADIUS;
-  posObj.color = this.COLOR;
-  posObj.radius = this.RADIUS;
+  options.color = this.COLOR;
+  options.radius = this.RADIUS;
   const vel = Util.randomVec(DEFAULTS.SPEED);
-  posObj.vel = vel;
-  MovingObject.call(this, posObj);
+  options.vel = vel;
+  MovingObject.call(this, options);
 
 }
 
