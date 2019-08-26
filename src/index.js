@@ -7,7 +7,7 @@ window.Asteroid = Asteroid;
 const mo = new MovingObject({
   pos: [30, 30],
   vel: [10, 10],
-  radius: 20,
+  radius: 30,
   color: "#00FF00"
 });
 
