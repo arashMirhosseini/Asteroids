@@ -14,7 +14,7 @@ const Util = {
   scale(vec, m) {
     return [vec[0] * m, vec[1] * m];
   },
-  
+
   wrap(coord, max) {
     if (coord < 0) {
       return max - (coord % max);
@@ -23,7 +23,14 @@ const Util = {
     } else {
       return coord;
     }
+  },
+
+  dis(pos1, pos2) {
+    const dX = Math.pow((pos1[0] - pos2[0]), 2);
+    const dY = Math.pow((pos1[1] - pos2[1]), 2);
+    return Math.sqrt(dX + dY);
   }
+
 };
 
 module.exports = Util;

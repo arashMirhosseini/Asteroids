@@ -1,3 +1,5 @@
+const Util = require("./util.js");
+
 function MovingObject(obj) {
   this.pos = obj.pos;
   this.vel = obj.vel;
@@ -18,6 +20,14 @@ MovingObject.prototype.move = function() {
   this.pos[0] = wrapPos[0] + this.vel[0];
   this.pos[1] = wrapPos[1] + this.vel[1];
 
+}
+
+MovingObject.prototype.isCollideWith = function(otherObject) {
+  const dist = Util.dis(this.pos, otherObject.pos);
+  if (dist < this.radius + otherObject.radius) {
+    return true;
+  } 
+  return false; 
 }
 
 module.exports = MovingObject;
