@@ -6,7 +6,7 @@ const Bullet = require("./bullet.js");
 function Game() {
   this.DIM_X = 1000;
   this.DIM_Y = 600;
-  this.NUM_ASTEROIDS = 0;
+  this.NUM_ASTEROIDS = 2;
   this.addAsteroids = this.addAsteroids.bind(this);
   this.asteroids = [];
   this.bullets = [];
@@ -69,7 +69,6 @@ Game.prototype.checkCollisions = function() {
     for (let j = i + 1; j < allObjects.length; j++) {
       const object2 = allObjects[j];
       if (object1.isCollideWith(object2)) {
-        console.log(`number of asteroids: ${this.NUM_ASTEROIDS}`);
         object1.collideWith(object2);
       }
     }

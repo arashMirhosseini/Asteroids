@@ -1,5 +1,5 @@
 const Util = require("./util.js");
-const Bullet = require("./bullet.js");
+// const Bullet = require("./bullet.js");
 
 function MovingObject(obj) {
   this.pos = obj.pos;
@@ -9,6 +9,8 @@ function MovingObject(obj) {
   this.game = obj.game;
 }
 
+MovingObject.EXE = 2; 
+
 MovingObject.prototype.draw = function(ctx) {
   ctx.fillStyle = this.color;
   ctx.beginPath();
@@ -17,6 +19,9 @@ MovingObject.prototype.draw = function(ctx) {
 }
 
 MovingObject.prototype.move = function() {
+  if (this.game.isOutOfBounds(this.pos)) {
+    
+  }
   // if (this instanceof Bullet) {
   //   console.log(this);
   // }
