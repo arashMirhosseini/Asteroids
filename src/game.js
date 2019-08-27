@@ -52,9 +52,9 @@ Game.prototype.draw = function(ctx) {
   });
 }
 
-Game.prototype.moveObjects = function() {
+Game.prototype.moveObjects = function(delta) {
   this.allObjects().forEach((obj) => {
-    obj.move();
+    obj.move(delta);
   });
 }
 
@@ -76,8 +76,8 @@ Game.prototype.checkCollisions = function() {
   return null;
 }
 
-Game.prototype.step = function() {
-  this.moveObjects();
+Game.prototype.step = function(timeDelta) {
+  this.moveObjects(timeDelta);
   this.checkCollisions();
 }
 

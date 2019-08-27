@@ -17,29 +17,26 @@ MovingObject.prototype.draw = function(ctx) {
   ctx.arc(this.pos[0], this.pos[1], this.radius, 0, 2 * Math.PI, true);
   ctx.fill();
 }
-
-MovingObject.prototype.move = function() {
+const NORMAL_FRAME_TIME_DELTA = 1000 / 60;
+MovingObject.prototype.move = function(timeDelta) {
+  // timeDelta is number of milliseconds since last move
+  // if the computer is busy the time delta will be larger
+  // in this case the MovingObject should move farther in this frame
+  // velocity of object is how far it should move in 1/60th of a second
+  const velocityScale = timeDelta / NORMAL_FRAME_TIME_DELTA,
+    offsetX = this.vel[0] * velocityScale,
+    offsetY = this.vel[1] * velocityScale;
+  
+  this.pos = [this.pos[0] + offsetX, this.pos[1] + offsetY];
+  
   if (this.game.isOutOfBounds(this.pos)) {
-    
+    if (this.isWrappable) {
+      this.pos = this.game.wrap(this.pos);
+    } else {
+      this.remove();
+    }
   }
-  // if (this instanceof Bullet) {
-  //   console.log(this);
-  // }
-  let wrapPos = this.game.wrap(this.pos);
-  
-  // if (this.isWrappable) {
-  //   wrapPos = this.game.wrap(this.pos);
-  // }
-  // if (this instanceof Bullet) {
-  //   console.log("after: ");
-  // }
-  this.pos[0] = wrapPos[0] + this.vel[0];
-  this.pos[1] = wrapPos[1] + this.vel[1];  
-  // if (this instanceof Bullet) {
-  //   console.log(this);
-  // }
-  
-}
+};
 
 MovingObject.prototype.isCollideWith = function(otherObject) {
   const dist = Util.dis(this.pos, otherObject.pos);
