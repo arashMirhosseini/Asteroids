@@ -31,13 +31,13 @@ const Util = {
     return Math.sqrt(dX + dY);
   },
 
-  len(vec) {
+  norm(vec) {
     return Util.dist([0, 0], vec);
   },
 
   dir(vec) {
-    const len = Util.len(vec);
-    return Util.scale(vec, 1 / len);
+    const norm = Util.norm(vec);
+    return Util.scale(vec, 1 / norm);
   }
 
 };

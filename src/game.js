@@ -6,7 +6,7 @@ const Bullet = require("./bullet.js");
 function Game() {
   this.DIM_X = 1000;
   this.DIM_Y = 600;
-  this.NUM_ASTEROIDS = 2;
+  this.NUM_ASTEROIDS = 10;
   this.addAsteroids = this.addAsteroids.bind(this);
   this.asteroids = [];
   this.bullets = [];
@@ -59,9 +59,7 @@ Game.prototype.draw = function(ctx) {
 
 Game.prototype.moveObjects = function(delta) {
   this.allObjects().forEach((obj) => {
-    if (obj instanceof Bullet) {
-      console.log(obj);
-    }
+    
     obj.move(delta);
   });
 }
@@ -71,13 +69,14 @@ Game.prototype.wrap = function(pos) {
 }
 
 Game.prototype.checkCollisions = function() {
-  const allObjects = this.allObjects();
-  for (let i = 0; i < allObjects.length; i++) {
-    const object1 = allObjects[i];
-    for (let j = i + 1; j < allObjects.length; j++) {
-      const object2 = allObjects[j];
+  const allObjs = this.allObjects();
+  for (let i = 0; i < allObjs.length; i++) {
+    for (let j = 0; j < allObjs.length; j++) {
+      const object1 = allObjs[i];
+      const object2 = allObjs[j];
       if (object1.isCollideWith(object2)) {
-        object1.collideWith(object2);
+        const collision = object1.collideWith(object2);
+        if (collision) return;
       }
     }
   }

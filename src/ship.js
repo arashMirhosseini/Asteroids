@@ -35,7 +35,7 @@ Ship.prototype.power = function(impulse) {
 }
 
 Ship.prototype.fireBullet = function() {
-  const len = Util.len(this.vel);
+  const len = Util.norm(this.vel);
 
   if (len === 0) {
     // Can't fire unless moving.

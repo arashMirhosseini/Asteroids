@@ -2,7 +2,6 @@ function GameView(game, ctx) {
   this.ctx = ctx;
   this.game = game;
   this.ship = this.game.addShip();
-  this.lastTime = 0;
 }
 
 GameView.MOVES = {
@@ -12,10 +11,10 @@ GameView.MOVES = {
   d: [1, 0],
 };
 
-GameView.prototype.bindKeyHandlers = function () {
+GameView.prototype.bindKeyHandlers = function bindKeyHandlers() {
   const ship = this.ship;
-  Object.keys(GameView.MOVES).forEach(function(k) {
 
+  Object.keys(GameView.MOVES).forEach(function (k) {
     const move = GameView.MOVES[k];
     key(k, function () { ship.power(move); });
   });
