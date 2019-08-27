@@ -19,7 +19,7 @@ function Ship(options) {
   MovingObject.call(this, options);
 }
 
-Ship.RADIUS = 15;
+Ship.RADIUS = 10;
 
 Util.inherits(Ship, MovingObject);
 

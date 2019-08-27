@@ -5,12 +5,12 @@ const Ship = require("./ship.js");
 function Game() {
   this.DIM_X = 1000;
   this.DIM_Y = 600;
-  this.NUM_ASTEROIDS = 10;
+  this.NUM_ASTEROIDS = 5;
   this.addAsteroids = this.addAsteroids.bind(this);
   this.asteroids = [];
   this.addAsteroids();
-  this.randomPosition = this.randomPosition.bind(this);
-  this.ship = new Ship({ pos: this.randomPosition(), game: this });
+  this.addShip = this.addShip.bind(this);
+  this.ship = this.addShip();
 }
 
 Game.prototype.addAsteroids = function() {
@@ -21,6 +21,11 @@ Game.prototype.addAsteroids = function() {
   }
 }
 
+Game.prototype.addShip = function() {
+  const ship = new Ship({ pos: this.randomPosition(), game: this });
+  return ship;
+}
+
 Game.prototype.randomPosition = function() {
   const xPos = Math.random() * this.DIM_X;
   const yPos = Math.random() * this.DIM_Y;
@@ -29,7 +34,8 @@ Game.prototype.randomPosition = function() {
 
 Game.prototype.draw = function(ctx) {
   ctx.clearRect(0, 0, this.DIM_X, this.DIM_Y);
-  this.allObjects().forEach((obj) => {
+  const allObj = this.allObjects();
+  allObj.forEach((obj) => {
     obj.draw(ctx);
   });
 }
