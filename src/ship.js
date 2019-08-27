@@ -35,14 +35,31 @@ Ship.prototype.power = function(impulse) {
 }
 
 Ship.prototype.fireBullet = function() {
+  const len = Util.len(this.vel);
+
+  if (len === 0) {
+    // Can't fire unless moving.
+    return;
+  }
+
+  const relVel = Util.scale(
+    Util.dir(this.vel),
+    Bullet.SPEED
+  );
+
+  const bulletVel = [
+    relVel[0] + this.vel[0], relVel[1] + this.vel[1]
+  ];
+
   const bullet = new Bullet({
     pos: this.pos,
-    vel: [1, 3],
+    vel: bulletVel,
     color: this.color,
     game: this.game
   });
-  
+
   this.game.add(bullet);
+
 }
 
 module.exports = Ship;
