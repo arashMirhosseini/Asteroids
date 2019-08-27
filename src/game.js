@@ -1,6 +1,7 @@
 const Asteroid = require("./asteroid.js");
 const Util = require("./util.js");
 const Ship = require("./ship.js");
+const Bullet = require("./bullet.js");
 
 function Game() {
   this.DIM_X = 1000;
@@ -8,21 +9,32 @@ function Game() {
   this.NUM_ASTEROIDS = 5;
   this.addAsteroids = this.addAsteroids.bind(this);
   this.asteroids = [];
+  this.bullets = [];
+  this.ships = [];
   this.addAsteroids();
-  this.addShip = this.addShip.bind(this);
-  this.ship = this.addShip();
 }
 
 Game.prototype.addAsteroids = function() {
   for (let i = 0; i < this.NUM_ASTEROIDS; i++) {
     const pos = this.randomPosition();
     const asteroid = new Asteroid({ pos: pos, game: this });
-    this.asteroids.push(asteroid);
+    this.add(asteroid);
+  }
+}
+
+Game.prototype.add = function(obj) {
+  if (obj instanceof Asteroid) {
+    this.asteroids.push(obj);
+  } else if (obj instanceof Bullet) {
+    this.bullets.push(obj)
+  } else {
+    this.ships.push(obj);
   }
 }
 
 Game.prototype.addShip = function() {
   const ship = new Ship({ pos: this.randomPosition(), game: this });
+  this.add(ship);
   return ship;
 }
 
@@ -42,7 +54,6 @@ Game.prototype.draw = function(ctx) {
 
 Game.prototype.moveObjects = function() {
   this.allObjects().forEach((obj) => {
-    // console.log(obj);
     obj.move();
   });
 }
@@ -71,14 +82,20 @@ Game.prototype.step = function() {
   this.checkCollisions();
 }
 
-Game.prototype.remove = function(asteroid) {
-  this.NUM_ASTEROIDS--;
-  const indexAsteroid = this.asteroids.indexOf(asteroid);
-  this.asteroids.splice(indexAsteroid, 1);
+Game.prototype.remove = function(obj) {
+  if (obj instanceof Asteroid) {
+    this.NUM_ASTEROIDS--;
+    const indexAsteroid = this.asteroids.indexOf(obj);
+    this.asteroids.splice(indexAsteroid, 1);
+  } else {
+    const indexBullet = this.bullets.indexOf(obj);
+    this.bullets.splice(indexBullet, 1);    
+  }
 }
 
+
 Game.prototype.allObjects = function() {
-  return this.asteroids.concat(this.ship);
+  return this.asteroids.concat(this.ships).concat(this.bullets);
 }
 
 module.exports = Game;
