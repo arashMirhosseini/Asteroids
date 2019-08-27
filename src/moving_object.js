@@ -1,4 +1,5 @@
 const Util = require("./util.js");
+const Bullet = require("./bullet.js");
 
 function MovingObject(obj) {
   this.pos = obj.pos;
@@ -16,10 +17,23 @@ MovingObject.prototype.draw = function(ctx) {
 }
 
 MovingObject.prototype.move = function() {
-  const wrapPos = this.game.wrap(this.pos);
+  // if (this instanceof Bullet) {
+  //   console.log(this);
+  // }
+  let wrapPos = this.game.wrap(this.pos);
+  
+  // if (this.isWrappable) {
+  //   wrapPos = this.game.wrap(this.pos);
+  // }
+  // if (this instanceof Bullet) {
+  //   console.log("after: ");
+  // }
   this.pos[0] = wrapPos[0] + this.vel[0];
-  this.pos[1] = wrapPos[1] + this.vel[1];
-
+  this.pos[1] = wrapPos[1] + this.vel[1];  
+  // if (this instanceof Bullet) {
+  //   console.log(this);
+  // }
+  
 }
 
 MovingObject.prototype.isCollideWith = function(otherObject) {
@@ -33,6 +47,8 @@ MovingObject.prototype.isCollideWith = function(otherObject) {
 MovingObject.prototype.collideWith = function(otherObject) {
  
 }
+
+MovingObject.prototype.isWrappable = true;
 
 module.exports = MovingObject;
 

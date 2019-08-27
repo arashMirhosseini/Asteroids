@@ -1,6 +1,6 @@
-const Util = require("./util.js");
-const MovingObject = require("./moving_object.js");
-const Bullet = require("./bullet.js");
+const MovingObject = require("./moving_object");
+const Util = require("./util");
+const Bullet = require("./bullet");
 
 function randomColor() {
   const hexDigits = "0123456789ABCDEF";
@@ -30,19 +30,18 @@ Ship.prototype.relocate = function() {
 }
 
 Ship.prototype.power = function(impulse) {
-  // console.log(impulse);
   this.vel[0] += impulse[0];
   this.vel[1] += impulse[1];
 }
 
 Ship.prototype.fireBullet = function() {
-  const bullet = new Bullet(
-    { vel: this.vel,
-      pos: this.pos,
-      game: this.game,
-      color: randomColor()
-    }
-  );
+  const bullet = new Bullet({
+    pos: this.pos,
+    vel: [1, 3],
+    color: this.color,
+    game: this.game
+  });
+  
   this.game.add(bullet);
 }
 

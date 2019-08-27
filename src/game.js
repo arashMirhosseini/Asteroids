@@ -6,7 +6,7 @@ const Bullet = require("./bullet.js");
 function Game() {
   this.DIM_X = 1000;
   this.DIM_Y = 600;
-  this.NUM_ASTEROIDS = 5;
+  this.NUM_ASTEROIDS = 0;
   this.addAsteroids = this.addAsteroids.bind(this);
   this.asteroids = [];
   this.bullets = [];
@@ -93,9 +93,17 @@ Game.prototype.remove = function(obj) {
   }
 }
 
-
 Game.prototype.allObjects = function() {
   return this.asteroids.concat(this.ships).concat(this.bullets);
+}
+
+Game.prototype.isOutOfBounds = function(pos) {
+  return (
+    pos[0] < 0 ||
+    pos[0] > this.DIM_X ||
+    pos[1] < 0 ||
+    pos[1] > this.DIM_Y
+  );
 }
 
 module.exports = Game;
