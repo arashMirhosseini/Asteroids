@@ -1,5 +1,6 @@
 const Asteroid = require("./asteroid.js");
 const Util = require("./util.js");
+const Ship = require("./ship.js");
 
 function Game() {
   this.DIM_X = 1000;
@@ -8,6 +9,8 @@ function Game() {
   this.addAsteroids = this.addAsteroids.bind(this);
   this.asteroids = [];
   this.addAsteroids();
+  this.randomPosition = this.randomPosition.bind(this);
+  this.ship = new Ship({ pos: this.randomPosition() });
 }
 
 Game.prototype.addAsteroids = function() {
@@ -16,7 +19,6 @@ Game.prototype.addAsteroids = function() {
     const asteroid = new Asteroid({ pos: pos, game: this });
     this.asteroids.push(asteroid);
   }
-
 }
 
 Game.prototype.randomPosition = function() {
@@ -27,14 +29,14 @@ Game.prototype.randomPosition = function() {
 
 Game.prototype.draw = function(ctx) {
   ctx.clearRect(0, 0, this.DIM_X, this.DIM_Y);
-  this.asteroids.forEach((asteroid) => {
-    asteroid.draw(ctx);
+  this.allObjects().forEach((obj) => {
+    obj.draw(ctx);
   });
 }
 
 Game.prototype.moveObjects = function() {
-  this.asteroids.forEach((asteroid) => {
-    asteroid.move();
+  this.allObjects().forEach((obj) => {
+    obj.move();
   });
 }
 
@@ -43,13 +45,14 @@ Game.prototype.wrap = function(pos) {
 }
 
 Game.prototype.checkCollisions = function() {
-  for (let i = 0; i < this.asteroids.length; i++) {
-    const asteroid1 = this.asteroids[i];
-    for (let j = i + 1; j < this.asteroids.length; j++) {
-      const asteroid2 = this.asteroids[j];
-      if (asteroid1.isCollideWith(asteroid2)) {
+  const allObjects = this.allObjects();
+  for (let i = 0; i < allObjects.length; i++) {
+    const object1 = allObjects[i];
+    for (let j = i + 1; j < allObjects.length; j++) {
+      const object2 = allObjects[j];
+      if (object1.isCollideWith(object2)) {
         console.log(`number of asteroids: ${this.NUM_ASTEROIDS}`);
-        asteroid1.collideWith(asteroid2);
+        object1.collideWith(object2);
       }
     }
   }
@@ -65,6 +68,10 @@ Game.prototype.remove = function(asteroid) {
   this.NUM_ASTEROIDS--;
   const indexAsteroid = this.asteroids.indexOf(asteroid);
   this.asteroids.splice(indexAsteroid, 1);
+}
+
+Game.prototype.allObjects = function() {
+  return this.asteroids.concat(this.ship);
 }
 
 module.exports = Game;
