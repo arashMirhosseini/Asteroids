@@ -10,7 +10,7 @@ function Game() {
   this.asteroids = [];
   this.addAsteroids();
   this.randomPosition = this.randomPosition.bind(this);
-  this.ship = new Ship({ pos: this.randomPosition() });
+  this.ship = new Ship({ pos: this.randomPosition(), game: this });
 }
 
 Game.prototype.addAsteroids = function() {
@@ -36,6 +36,7 @@ Game.prototype.draw = function(ctx) {
 
 Game.prototype.moveObjects = function() {
   this.allObjects().forEach((obj) => {
+    // console.log(obj);
     obj.move();
   });
 }
