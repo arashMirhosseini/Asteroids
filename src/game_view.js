@@ -1,8 +1,6 @@
-const Game = require("./game.js");
-
-function GameView(ctx) {
+function GameView(game, ctx) {
   this.ctx = ctx;
-  this.game = new Game();
+  this.game = game;
   this.ship = this.game.addShip();
   this.lastTime = 0;
 }
@@ -16,14 +14,19 @@ GameView.MOVES = {
 
 GameView.prototype.bindKeyHandlers = function () {
   const ship = this.ship;
-  Object.keys(GameView.MOVES).forEach((k) => {
-    key(k, () => ship.power(GameView.MOVES[k]));
+  Object.keys(GameView.MOVES).forEach(function(k) {
+
+    const move = GameView.MOVES[k];
+    key(k, function () { ship.power(move); });
   });
-  key("space", () => ship.fireBullet());
+
+  key("space", function () { ship.fireBullet(); });
 };
 
 GameView.prototype.start = function() {
   this.bindKeyHandlers();
+  this.lastTime = 0;
+
   requestAnimationFrame(this.animate.bind(this));
 };
 
@@ -31,6 +34,7 @@ GameView.prototype.animate = function(time) {
   const timeDelta = time - this.lastTime;
   this.game.step(timeDelta);
   this.game.draw(this.ctx);
+  this.lastTime = time;
 
   requestAnimationFrame(this.animate.bind(this));
 };

@@ -14,8 +14,8 @@ function randomColor() {
 
 function Ship(options) {
   options.radius = Ship.RADIUS;
-  options.color = options.color || randomColor();
   options.vel = options.vel || [0, 0];
+  options.color = options.color || randomColor();
 
   MovingObject.call(this, options);
 }

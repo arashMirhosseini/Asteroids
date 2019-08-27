@@ -25,14 +25,14 @@ const Util = {
     }
   },
 
-  dis(pos1, pos2) {
+  dist(pos1, pos2) {
     const dX = Math.pow((pos1[0] - pos2[0]), 2);
     const dY = Math.pow((pos1[1] - pos2[1]), 2);
     return Math.sqrt(dX + dY);
   },
 
   len(vec) {
-    return Util.dis([0, 0], vec);
+    return Util.dist([0, 0], vec);
   },
 
   dir(vec) {

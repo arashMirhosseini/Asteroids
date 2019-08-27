@@ -14,6 +14,8 @@ function Game() {
   this.addAsteroids();
 }
 
+Game.BG_COLOR = "#000000";
+
 Game.prototype.addAsteroids = function() {
   for (let i = 0; i < this.NUM_ASTEROIDS; i++) {
     const pos = this.randomPosition();
@@ -46,6 +48,9 @@ Game.prototype.randomPosition = function() {
 
 Game.prototype.draw = function(ctx) {
   ctx.clearRect(0, 0, this.DIM_X, this.DIM_Y);
+  ctx.fillStyle = Game.BG_COLOR;
+  ctx.fillRect(0, 0, this.DIM_X, this.DIM_Y);
+
   const allObj = this.allObjects();
   allObj.forEach((obj) => {
     obj.draw(ctx);
@@ -54,6 +59,9 @@ Game.prototype.draw = function(ctx) {
 
 Game.prototype.moveObjects = function(delta) {
   this.allObjects().forEach((obj) => {
+    if (obj instanceof Bullet) {
+      console.log(obj);
+    }
     obj.move(delta);
   });
 }
@@ -81,19 +89,22 @@ Game.prototype.step = function(timeDelta) {
   this.checkCollisions();
 }
 
-Game.prototype.remove = function(obj) {
-  if (obj instanceof Asteroid) {
-    this.NUM_ASTEROIDS--;
-    const indexAsteroid = this.asteroids.indexOf(obj);
-    this.asteroids.splice(indexAsteroid, 1);
+Game.prototype.remove = function(object) {
+  
+  if (object instanceof Bullet) {
+    this.bullets.splice(this.bullets.indexOf(object), 1);
+  } else if (object instanceof Asteroid) {
+    this.asteroids.splice(this.asteroids.indexOf(object), 1);
+  } else if (object instanceof Ship) {
+    this.ships.splice(this.ships.indexOf(object), 1);
   } else {
-    const indexBullet = this.bullets.indexOf(obj);
-    this.bullets.splice(indexBullet, 1);    
+    console.log(object);
+    throw new Error("unknown type of object");
   }
 }
 
 Game.prototype.allObjects = function() {
-  return this.asteroids.concat(this.ships).concat(this.bullets);
+  return [].concat(this.ships, this.asteroids, this.bullets);
 }
 
 Game.prototype.isOutOfBounds = function(pos) {

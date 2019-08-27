@@ -1,4 +1,4 @@
-const Util = require("./util.js");
+const Util = require("./util");
 // const Bullet = require("./bullet.js");
 
 function MovingObject(obj) {
@@ -8,8 +8,6 @@ function MovingObject(obj) {
   this.color = obj.color;
   this.game = obj.game;
 }
-
-MovingObject.EXE = 2; 
 
 MovingObject.prototype.draw = function(ctx) {
   ctx.fillStyle = this.color;
@@ -39,16 +37,20 @@ MovingObject.prototype.move = function(timeDelta) {
 };
 
 MovingObject.prototype.isCollideWith = function(otherObject) {
-  const dist = Util.dis(this.pos, otherObject.pos);
-  if (dist < this.radius + otherObject.radius) {
+  const dist = Util.dist(this.pos, otherObject.pos);
+  if (dist < (this.radius + otherObject.radius)) {
     return true;
   } 
   return false; 
-}
+};
 
 MovingObject.prototype.collideWith = function(otherObject) {
  
-}
+};
+
+MovingObject.prototype.remove = function() {
+  this.game.remove();
+};
 
 MovingObject.prototype.isWrappable = true;
 
