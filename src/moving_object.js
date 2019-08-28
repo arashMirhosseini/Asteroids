@@ -1,5 +1,4 @@
 const Util = require("./util");
-const Bullet = require("./bullet");
 
 function MovingObject(obj) {
   this.pos = obj.pos;
@@ -13,7 +12,6 @@ MovingObject.prototype.collideWith = function (otherObject) {
 };
 
 MovingObject.prototype.draw = function(ctx) {
-  if (this instanceof Bullet) console.log(this)
   ctx.fillStyle = this.color;
   ctx.beginPath();
   ctx.arc(this.pos[0], this.pos[1], this.radius, 0, 2 * Math.PI, true);
@@ -49,7 +47,7 @@ MovingObject.prototype.move = function(timeDelta) {
 };
 
 MovingObject.prototype.remove = function() {
-  this.game.remove();
+  this.game.remove(this);
 };
 
 module.exports = MovingObject;

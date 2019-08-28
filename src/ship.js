@@ -60,6 +60,7 @@ Ship.prototype.fireBullet = function() {
 
   this.game.add(bullet);
 
+
 }
 
 module.exports = Ship;

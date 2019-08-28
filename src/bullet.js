@@ -14,8 +14,4 @@ Util.inherits(Bullet, MovingObject);
 
 Bullet.prototype.isWrappable = false;
 
-Bullet.prototype.collideWith = function(otherObject) {
-  this.game.remove(otherObject);
-}
-
 module.exports = Bullet;
